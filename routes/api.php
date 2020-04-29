@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::resource('states', 'StateController');
-Route::resource('cities', 'CityController');
+Route::apiResource('states', 'StateController');
+Route::apiResource('cities', 'CityController');
