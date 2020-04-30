@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexStateGetRequest;
 use App\Http\Requests\StoreStatePostRequest;
+use App\Http\Requests\UpdateStatePutPatchRequest;
 use App\Http\Resources\State as StateResource;
 use App\Repositories\State\Repository;
-use App\State;
-use Illuminate\Http\Request;
 
 class StateController extends Controller
 {
@@ -32,7 +31,7 @@ class StateController extends Controller
      */
     public function store(StoreStatePostRequest $request)
     {
-        return (new Repository(request()))->createResource($request);
+        return (new Repository($request))->createResource($request);
     }
 
     /**
@@ -49,13 +48,13 @@ class StateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UpdateStatePutPatchRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return StateResource|\Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateStatePutPatchRequest $request, $id)
     {
-        //
+        return (new Repository($request))->updateResource($request, $id);
     }
 
     /**

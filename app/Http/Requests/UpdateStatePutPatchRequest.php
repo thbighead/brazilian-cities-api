@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStatePutPatchRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateStatePutPatchRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,17 @@ class UpdateStatePutPatchRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'acronym' => [
+                'string',
+                'size:2',
+                Rule::unique('states', 'acronym')->ignore($this->route('state'))
+            ],
+            'name' => 'string|min:3',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('acronym')) $this->merge(['acronym' => strtoupper($this->get('acronym'))]);
     }
 }
