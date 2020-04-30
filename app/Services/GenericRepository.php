@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Http\Request;
+use Str;
 
 class GenericRepository
 {
@@ -26,22 +28,11 @@ class GenericRepository
      */
     public function applyFilters($table_name, array $columns)
     {
-        foreach ($columns as $column => $value) {
+        $resource_singular_name = Str::singular($table_name);
+
+        foreach ($columns as $requested_field => $value) {
+            $column = Str::after($requested_field, "{$resource_singular_name}_");
             $this->query->where("$table_name.$column", $value);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param $table_name
-     * @param array $columns
-     * @return $this
-     */
-    public function applyOrdering($table_name, $columns)
-    {
-        foreach ($columns as $column => $order) {
-            $this->query->orderBy("$table_name.$column", $order);
         }
 
         return $this;
@@ -54,9 +45,29 @@ class GenericRepository
      */
     public function applyFreeTextFilters($table_name, array $columns)
     {
-        foreach ($columns as $column => $text) {
+        $resource_singular_name = Str::singular($table_name);
+
+        foreach ($columns as $requested_field => $text) {
+            $column = Str::after($requested_field, "{$resource_singular_name}_");
             $like_text = '%' . implode('%', mb_str_split($text)) . '%';
             $this->query->where("$table_name.$column", 'like', $like_text);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $table_name
+     * @param array $columns
+     * @return $this
+     */
+    public function applyOrdering($table_name, array $columns)
+    {
+        $resource_singular_name = Str::singular($table_name);
+
+        foreach ($columns as $requested_field => $order) {
+            $column = Str::after($requested_field, "order_by_{$resource_singular_name}_");
+            $this->query->orderBy("$table_name.$column", $order);
         }
 
         return $this;
@@ -70,7 +81,7 @@ class GenericRepository
     {
         if ($paginate === false) return $this->query->get();
 
-        if (is_int($paginate)) return $this->query->paginate($paginate);
+        if (($paginate = (int)$paginate) > 0) return $this->query->paginate($paginate);
 
         return $this->query->paginate();
     }
