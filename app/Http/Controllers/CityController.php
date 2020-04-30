@@ -37,11 +37,11 @@ class CityController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return CityResource
      */
     public function show($id)
     {
-        //
+        return (new Repository(request()))->showResourceDetailed($id);
     }
 
     /**
