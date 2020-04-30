@@ -13,7 +13,7 @@ class StoreCityPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreCityPostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'state_acronym' => 'required|string|size:2',
+            'name' => 'required|string|min:3',
         ];
     }
 }
