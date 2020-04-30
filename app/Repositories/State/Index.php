@@ -9,9 +9,13 @@ trait Index
 {
     public function getIndexResources()
     {
-        return $this->mountIndexRepository()
-            ->applyIndexFilteringAndOrdering($this->request)
-            ->getQueryData($this->request->get('paginate', false));
+        $genericRepository = (new GenericRepository(State::query()->select('states.*')
+            ->leftJoin('cities', 'cities.state_id', '=', 'states.id')))
+            ->applyIndexFilteringAndOrdering($this->request);
+        $genericRepository->query = $this->mountIndexRepository()->query
+            ->fromSub($genericRepository->query, 'not_grouped_states')
+            ->groupBy('not_grouped_states.id');
+        return $genericRepository->getQueryData($this->request->get('paginate', false));
     }
 
     private function mountIndexRepository()
@@ -35,7 +39,6 @@ trait Index
                     ]));
                 }
             }
-        ]) : State::query())->select('states.*')
-            ->leftJoin('cities', 'cities.state_id', '=', 'states.id'));
+        ]) : State::query()));
     }
 }

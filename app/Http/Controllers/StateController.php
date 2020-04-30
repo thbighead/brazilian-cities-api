@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexStateGetRequest;
+use App\Http\Resources\State as StateResource;
+use App\Repositories\State\Repository;
 use Illuminate\Http\Request;
 
 class StateController extends Controller
@@ -9,11 +12,14 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexStateGetRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(IndexStateGetRequest $request)
     {
-        //
+        $repository = new Repository($request);
+
+        return StateResource::collection($repository->getIndexResources());
     }
 
     /**
