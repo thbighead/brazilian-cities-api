@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class Repository
 {
-    use Destroy, Index;
+    use Destroy, Index, Show;
 
     private $request;
 
