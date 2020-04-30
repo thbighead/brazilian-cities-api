@@ -21,7 +21,7 @@ trait Update
 
         if (is_null($state)) return response()->json([
             'message' => 'State not found',
-        ], 422);
+        ], 404);
 
         if (key_exists('acronym', $updatedState)) $state->acronym = $updatedState['acronym'];
         if (key_exists('name', $updatedState)) $state->name = $updatedState['name'];

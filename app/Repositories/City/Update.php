@@ -14,7 +14,7 @@ trait Update
     {
         if ($this->checkEmptyRequestBody($request, $updatedCity)) return response()->json(null, 204);
 
-        if (is_null($city = City::find($id))) return $this->returnUnprocessableEntityResponse('City not found');
+        if (is_null($city = City::find($id))) return response()->json(['message' => 'City not found'], 404);
 
         if (key_exists('state_acronym', $updatedCity)) {
             if (is_null($relatedState = $this->getStateByAcronym($updatedCity)))
@@ -34,7 +34,7 @@ trait Update
         return new CityResource($city);
     }
 
-    private function checkEmptyRequestBody(UpdateCityPutPatchRequest $request, array &$updatedCity)
+    private function checkEmptyRequestBody(UpdateCityPutPatchRequest $request, &$updatedCity)
     {
         return empty($updatedCity = $request->only([
             'state_acronym',
