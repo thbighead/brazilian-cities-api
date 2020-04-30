@@ -34,6 +34,7 @@ class IndexCityGetRequest extends FormRequest
             'order_by_state_id' => 'in:asc,desc',
             'order_by_state_name' => 'in:asc,desc',
             'order_by_state_updated_at' => 'in:asc,desc',
+            'page' => 'integer|min:1',
             'paginate' => 'integer|min:5',
             'state_acronym' => 'string|size:2',
             'state_name' => 'string|min:3',
