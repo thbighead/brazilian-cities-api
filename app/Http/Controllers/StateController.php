@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IndexStateGetRequest;
 use App\Http\Resources\State as StateResource;
 use App\Repositories\State\Repository;
+use App\State;
 use Illuminate\Http\Request;
 
 class StateController extends Controller
@@ -60,10 +61,10 @@ class StateController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        return (new Repository(request()))->destroyResources($id);
     }
 }
