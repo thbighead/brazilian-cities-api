@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class Repository
 {
-    use Index;
+    use Destroy, Index;
 
     private $request;
     /** @var GenericRepository $repository */

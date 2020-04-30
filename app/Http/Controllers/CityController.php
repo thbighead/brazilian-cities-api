@@ -64,6 +64,6 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return (new Repository(request()))->destroyResources($id);
     }
 }
