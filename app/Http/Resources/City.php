@@ -17,7 +17,7 @@ class City extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'state' => State::collection($this->whenLoaded('state'))
+            'state' => new State($this->whenLoaded('state'))
         ];
     }
 }
