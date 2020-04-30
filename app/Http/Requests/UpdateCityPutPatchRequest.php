@@ -13,7 +13,7 @@ class UpdateCityPutPatchRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateCityPutPatchRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'state_acronym' => 'string|size:2',
+            'name' => 'string|min:3',
         ];
     }
 }

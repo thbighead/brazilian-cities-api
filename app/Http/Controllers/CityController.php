@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
 use App\Http\Requests\IndexCityGetRequest;
 use App\Http\Requests\StoreCityPostRequest;
+use App\Http\Requests\UpdateCityPutPatchRequest;
 use App\Http\Resources\City as CityResource;
 use App\Repositories\City\Repository;
-use App\State;
-use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
@@ -33,7 +31,7 @@ class CityController extends Controller
      */
     public function store(StoreCityPostRequest $request)
     {
-        return (new Repository(request()))->createResource($request);
+        return (new Repository($request))->createResource($request);
     }
 
     /**
@@ -50,13 +48,13 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UpdateCityPutPatchRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return CityResource|\Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCityPutPatchRequest $request, $id)
     {
-        //
+        return (new Repository($request))->updateResource($request, $id);
     }
 
     /**
