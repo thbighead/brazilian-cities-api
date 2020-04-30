@@ -56,6 +56,25 @@ class GenericRepository
         return $this;
     }
 
+    public function applyIndexFilteringAndOrdering(Request $request)
+    {
+        return $this->applyFreeTextFilters('cities', $request->only([
+            'city_name'
+        ]))->applyFreeTextFilters('states', $request->only([
+            'state_name'
+        ]))->applyFilters('states', $request->only([
+            'state_acronym'
+        ]))->applyOrdering('cities', $request->only([
+            'order_by_city_id', 'order_by_city_name', 'order_by_city_created_at', 'order_by_city_updated_at'
+        ]))->applyOrdering('states', $request->only([
+            'order_by_state_id',
+            'order_by_state_acronym',
+            'order_by_state_name',
+            'order_by_state_created_at',
+            'order_by_state_updated_at'
+        ]));
+    }
+
     /**
      * @param $table_name
      * @param array $columns
