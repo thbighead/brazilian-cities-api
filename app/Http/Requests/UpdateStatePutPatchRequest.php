@@ -30,7 +30,11 @@ class UpdateStatePutPatchRequest extends FormRequest
                 'size:2',
                 Rule::unique('states', 'acronym')->ignore($this->route('state'))
             ],
-            'name' => 'string|min:3',
+            'name' => [
+                'string',
+                'min:3',
+                Rule::unique('states', 'name')->ignore($this->route('state'))
+            ],
         ];
     }
 

@@ -25,7 +25,7 @@ class StoreStatePostRequest extends FormRequest
     {
         return [
             'acronym' => 'required|string|size:2|unique:states,acronym',
-            'name' => 'required|string|min:3',
+            'name' => 'required|string|min:3|unique:states,name',
         ];
     }
 
