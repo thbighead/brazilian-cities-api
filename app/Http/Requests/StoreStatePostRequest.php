@@ -13,7 +13,7 @@ class StoreStatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreStatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'acronym' => 'required|string|size:2|unique:states,acronym',
+            'name' => 'required|string|min:3',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('acronym')) $this->merge(['acronym' => strtoupper($this->get('acronym'))]);
     }
 }

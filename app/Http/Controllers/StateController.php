@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexStateGetRequest;
+use App\Http\Requests\StoreStatePostRequest;
 use App\Http\Resources\State as StateResource;
 use App\Repositories\State\Repository;
 use App\State;
@@ -26,12 +27,12 @@ class StateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param StoreStatePostRequest $request
+     * @return StateResource|\Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreStatePostRequest $request)
     {
-        //
+        return (new Repository(request()))->createResource($request);
     }
 
     /**
