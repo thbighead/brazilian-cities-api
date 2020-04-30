@@ -22,7 +22,7 @@ Once the steps above have finished, run `php artisan migrate --seed` from projec
 
 This project comes up with an `Insomnia.json` file which you may use to import some plug and play requests to your API using the [Insomnia](https://insomnia.rest/) software.
 
-Also, there are tests implemented to all API's features and you can run them through the command `php artisan tests` from project's root.
+Also, there are tests implemented to all API's features and you can run them through the command `php artisan test` from project's root.
 
 >**Important: Don't forget to set your `APP_URL` at `.env` file before trying to use Insomnia. The default endpoint into the JSON file is [dev.brazilcities.com.br](http://dev.brazilcities.com.br)**
 
