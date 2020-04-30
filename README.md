@@ -26,6 +26,10 @@ Also, there are tests implemented to all API's features and you can run them thr
 
 >**Important: Don't forget to set your `APP_URL` at `.env` file before trying to use Insomnia. The default endpoint into the JSON file is [dev.brazilcities.com.br](http://dev.brazilcities.com.br)**
 
+### Tests failed?
+
+If you run on an error just after running `php artisan test`, try running `php artisan optimize` before and run the tests again.
+
 ###### This project is completely free and open. Fork and enjoy!
 
 _built on_:
