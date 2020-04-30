@@ -1,3 +1,35 @@
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+
+# Brazil Cities List API
+
+This project comes up with a simple ready to use API to retrieve States and Cities list.
+
+The data present into this project seeders were from the [Geonames](https://www.geonames.org/) webservice somewhere about Feb 2020.
+
+## Installing the project
+
+To install this project just:
+1. `git clone` it;
+1. create a `.env` from `.env.example` (run `cp .env.example .env` from project root);
+1. set your database credentials on it (create your database with `utf8mb4_unicode_ci` collation);
+1. run `composer install` from project root.
+
+## Managing Database
+
+Once the steps above have finished, run `php artisan migrate --seed` from project root to create your database structure and populates it with the data of Geonames.
+
+## Running tests
+
+This project comes up with an `Insomnia.json` file which you may use to import some plug and play requests to your API using the [Insomnia](https://insomnia.rest/) software.
+
+Also, there are tests implemented to all API's features and you can run them through the command `php artisan tests` from project's root.
+
+>**Important: Don't forget to set your `APP_URL` at `.env` file before trying to use Insomnia. The default endpoint into the JSON file is [dev.brazilcities.com.br](http://dev.brazilcities.com.br)**
+
+###### This project is completely free and open. Fork and enjoy!
+
+_built on_:
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
